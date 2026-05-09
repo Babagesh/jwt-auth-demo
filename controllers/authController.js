@@ -8,12 +8,12 @@ const register = async(req, res) => {
         const existingUser = await User.findOne({email})
         if(existingUser)
         {
-            res.status(400).json({message: "User already exists!"})
+            return res.status(400).json({message: "User already exists!"})
         }
         const hashedPassword = await hashPassword(password)
         const user = new User({name, email, password: hashedPassword})
         await user.save()
-        res.status(201).json({message: "User registered successfully!"});
+        return res.status(201).json({message: "User registered successfully!"});
     }
     catch(err)
     {
@@ -24,15 +24,15 @@ const register = async(req, res) => {
 const login = async(req, res) => {
     try{
         const {email, password} = req.body
-        const user = User.findOne({email})
+        const user = await User.findOne({email})
         if(!user)
         {
-            res.status(400).json({message: "invalid email or password"};
+            return res.status(400).json({message: "invalid email or password"});
         }
         const isMatch = await comparePassword(password, user.password)
         if(!isMatch)
         {
-            res.status(400).json({message:"invalid email or password"})
+            return res.status(400).json({message:"invalid email or password"})
         }
         const token = generateToken({id: user._id, email: user.email});
         res.json({message: "Login successful!", token})
