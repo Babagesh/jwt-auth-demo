@@ -1,10 +1,7 @@
-import {mongoose} from 'mongoose'
+import mongoose from 'mongoose'
 const connectDB = async () => {
     try{
-        await mongoose.connect(proces.env.MONGO_URI, {
-            useNewURLParser: true,
-            useUnifiedTopology: true
-        });
+        await mongoose.connect(process.env.MONGO_URI);
         console.log("MongoDB Connected")
     }
     catch(err)

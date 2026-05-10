@@ -1,6 +1,6 @@
-import User from '../models/User'
-import {hashPassword, comparePassword} from '../services/hashService'
-import {generateToken} from '../services/jwtService'
+import User from '../models/User.js'
+import {hashPassword, comparePassword} from '../services/hashService.js'
+import {generateToken} from '../services/jwtService.js'
 
 const register = async(req, res) => {
     try{
